@@ -1,0 +1,86 @@
+#!/bin/bash
+
+function check_in()
+{
+	cd ~/CVS/Projects/$projectName/Working_Dir/.Source_Code_Dir
+	mv ./$Name ~/CVS/Projects/$projectName/Source_Code
+	echo "File $Name moved to Project Files for $projectName"
+}
+
+if [ $#=1 ] 
+then
+	projectName=$1
+
+	clear
+	cd ~/CVS/Projects
+
+	if [ -d $projectName ] 
+	then
+		cd ~/CVS/Projects/$projectName/Source_Code
+		
+		echo "<---------------------------------------------->"
+		echo " 		     Check In Source Code "
+		echo "<---------------------------------------------->"
+			
+		if [ ls = 0 ] 
+		then	
+			echo -e "\n There are no Source Code files \n"
+		else	
+			echo -e " \n Source Code Files : "
+			echo -n "   " 
+			ls
+		fi # End if ls
+
+		## DISPLAY WORD_DIR
+		cd ~/CVS/Projects/$projectName/Working_Dir/.Source_Code_Dir
+	
+		if [ ls = 0 ] 
+		then	
+			echo -e "\n There are no Source Code files \n"
+		else	
+			echo -e " \n Source Code Dir Files : "
+			echo -n "   " 
+			ls
+		fi # End if ls
+
+		echo -e "\n Enter File Name : "
+	 	echo -en " "
+		read Name
+
+		if [ -f $Name ]	
+		then	
+			
+			if [ $fileRequest="in" ]; 
+			then
+				check_in
+			fi
+	
+			echo -e "\n Enter description of changes : "
+		 	echo -en " "
+			read Changes
+
+			echo -e "\n<---------------------------------------------->"
+			echo " 	     Source Code Check In Complete "
+
+			cd ~/CVS_install/scripts/Project_Scripts
+			./edit_log "$projectName" "Checked In $Name"
+
+			cd ~/CVS_install/scripts/Project_Scripts
+			./edit_change_log "$projectName" "$Name" "$Changes"
+
+			./create_revision "$projectName" "Project_Files" "$Name"
+		else	
+			echo -e "\n Source Code does not exists in current directory. \n"
+			echo "<---------------------------------------------->"
+			echo " 	     Source Code Check In Aborted. "
+		fi # end name
+		echo -e "<---------------------------------------------->\n"
+	else 
+		echo -e "\n          $projectName does not exists. \n"
+		echo -e "<---------------------------------------------->\n"
+	fi
+else 
+echo -e " No valid project was supplied \n"
+fi
+
+exit 0

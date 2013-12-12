@@ -1,0 +1,34 @@
+#!/bin/bash
+
+clear
+directory="Project"
+projectName="Default_Project"
+
+cd ~/CVS/Projects/
+
+echo "<---------------------------------------------->"
+echo " 		     Remove Project "
+echo "<---------------------------------------------->"
+
+echo -e "\n Enter Project Name : "
+read projectName
+
+if [ -d "$projectName" ]
+then
+
+	cd ~/CVS/Projects/
+
+	rm -rf $projectName
+
+	echo -e "\n Project $projectName removed. "
+
+else
+	
+	echo -e "\n Project cannot be deleted as it does not exist. \n"
+fi
+
+	echo "<---------------------------------------------->"
+	echo " 	     Project Removal Complete "
+	echo -e "<---------------------------------------------->\n"
+
+exit 0

@@ -1,0 +1,58 @@
+#!/bin/bash
+
+if [ $# = 2 ] 
+then
+	projectName=$1
+	subDir=$2
+	
+	cd ~/CVS/Projects/
+	
+	if [ -d "$projectName" ] 
+	then
+
+	cd ~/CVS/Projects/$projectName/Project_Files
+
+	echo "<---------------------------------------------->"
+	echo " 		    View Projects Files "
+	echo "<---------------------------------------------->"
+
+	cd ~/CVS/Projects/$projectName/Revisions/Previous_Versions
+	if [ ls = 0 ]
+	then
+		echo -e "\n There are no projects files \n"
+	else
+		echo -e " \n Projects Files : "
+		echo " " $(ls)
+	fi
+
+	echo -e "\n Enter File Name : "
+	 	echo -en " "
+		read Name
+
+		cd ~/CVS/Projects/$projectName/Revisions/Previous_Versions
+
+		if [ -f $Name ]	
+		then
+
+			#cd ~/CVS/Projects/$projectName/$subDir
+
+			# create new copy of file
+			cp $Name ~/CVS/Projects/$projectName/Project_Files/"$Name"
+
+			echo -e "\n Restored sucessfully"
+
+			cd ~/CVS_install/scripts/Project_Scripts
+			./edit_log "$projectName" "Restored $Name Created"
+		else
+			echo -e "\n $Name does not exists. \n"
+			echo -e "<---------------------------------------------->\n"
+		fi
+	else 
+		echo -e "\n $projectName does not exists. \n"
+		echo -e "<---------------------------------------------->\n"
+	fi
+else
+		echo -e "No arguments \n"
+fi
+
+exit 0

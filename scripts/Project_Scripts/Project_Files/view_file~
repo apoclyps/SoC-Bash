@@ -1,0 +1,50 @@
+#!/bin/bash
+
+if [ $#=1 ]
+then
+
+	projectName=$1
+else
+	echo -e " No valid project was supplied \n"
+fi
+
+clear
+cd ~/CVS/Projects
+
+if [ -d "$projectName" ]
+then
+
+	cd ~/CVS/Projects/$projectName/Project_Files
+
+	echo "<---------------------------------------------->"
+	echo " 		    View Projects Files "
+	echo "<---------------------------------------------->"
+
+	if [ ls = 0 ] 
+	then
+		echo -e "\n There are no projects files \n"
+	else
+		echo -e " Projects Files : "
+
+		echo " " $(ls)
+	fi
+
+	## DISPLAY WORD_DIR
+		cd ~/CVS/Projects/$projectName/Working_Dir
+	
+		if [ ls = 0 ] 
+		then	
+			echo -e "\n There are no projects files \n"
+		else	
+			echo -e " \n Working Dir Files : "
+			echo " " $(ls)
+		fi # End if ls
+
+	cd ~/CVS_install/scripts/Project_Scripts
+	./edit_log "$projectName" "Viewed (all) Project File Directory"
+	
+fi
+
+echo -e "\n<---------------------------------------------->\n"
+
+exit 0

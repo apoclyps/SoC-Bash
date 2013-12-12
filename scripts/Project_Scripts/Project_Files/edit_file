@@ -1,0 +1,75 @@
+#!/bin/bash
+
+if [ $#=1 ]
+then
+	projectName=$1
+
+
+clear
+
+cd ~/CVS/Projects/
+
+if [ -d "$projectName" ]
+then
+
+	cd ~/CVS/Projects/$projectName/Project_Files
+
+	if [ ls = 0 ] 
+		then
+			echo "<---------------------------------------------->"
+			echo -e " There are no projects files "
+		else
+			echo "<---------------------------------------------->"
+			echo -e " Projects Files Available : "
+			echo " " $(ls)
+	fi
+
+	echo "<---------------------------------------------->"
+	echo " 		     Edit File "
+	echo "<---------------------------------------------->"
+
+	echo -e "\n Enter File Name : "
+ 	echo -en " "
+	read Name
+
+	if [ -f $Name ]
+	then
+		mv $Name ~/CVS/Projects/$projectName/Working_Dir/$Name
+		cd ~/CVS/Projects/$projectName/Working_Dir/		
+
+		gedit ~/CVS/Projects/$projectName/Working_Dir/$Name
+	
+		echo -e ""
+		read -p " Press any key when edited filed has been saved or closed."
+		
+		if [ -f "$Name~" ]
+		then
+			rm "$Name~"
+		fi
+		
+		echo -e "/n File $Name edited performed from $projectName \n"
+
+		echo "<---------------------------------------------->"
+		echo " 	     File Edit Complete "
+
+		cd ~/CVS_install/scripts/Project_Scripts
+		./edit_log "$projectName" "Edited $Name.txt"
+	else
+		echo -e "\n File does not exists. \n"
+		echo "<---------------------------------------------->"
+		echo " 	     File Edit Aborted. "
+	fi
+
+	echo -e "<---------------------------------------------->\n"
+
+else
+	echo -e "\n          $projectName does not exists. \n"
+
+	echo -e "<---------------------------------------------->\n"
+
+
+fi
+
+else
+	echo -e " No valid project was supplied \n"
+fi

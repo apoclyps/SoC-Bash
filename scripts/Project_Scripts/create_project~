@@ -1,0 +1,75 @@
+#!/bin/bash
+
+clear
+directory="Project"
+projectName="Default_Project"
+
+cd ~/CVS/Projects/
+
+echo "<---------------------------------------------->"
+echo " 		     Create Project"
+echo "<---------------------------------------------->"
+
+echo -en "\n Enter Project Name : "
+read Name
+
+projectName="Project_$Name"
+if [ ! -d "$projectName" ]
+then
+
+	cd ~/CVS/Projects/
+	mkdir $projectName
+	chmod 777 $projectName
+
+	echo -e "\n $projectName directory created. "
+
+	if [ -d "$projectName" ]
+	then
+
+		cd ~/CVS/Projects/$projectName/
+	
+		mkdir "Project_Files"	
+		mkdir "Source_Code"
+		mkdir "Revisions"
+		mkdir "Back-ups"
+		mkdir "Logs"
+		mkdir "Working_Dir"
+
+		echo " Sub-directories created. "
+
+		chmod 777 Project_Files
+		chmod 777 Source_Code
+		chmod 777 Revisions
+		chmod 777 Back-ups
+		chmod 777 Working_Dir
+		chmod 777 Logs
+
+		cd ~/CVS/Projects/$projectName/Working_Dir
+	
+		mkdir ."Source_Code_Dir"	
+
+		cd ~/CVS/Projects/$projectName/Logs/
+
+		touch Access_Log.txt
+		touch Change_Log.txt
+		touch User_List.txt
+		touch Archive_Log.txt
+
+		#echo -e " Sub-directories permissioned updated. \n"
+
+else
+	
+	echo -e "\n Directory not created \n"
+fi
+
+	echo "<---------------------------------------------->"
+	echo " 	     Project Creation Complete "
+	echo -e "<---------------------------------------------->\n"
+
+else
+	echo -e "\n          $directory directory already exists. \n"
+
+	echo -e "<---------------------------------------------->\n"
+fi
+
+exit 0

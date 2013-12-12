@@ -1,0 +1,41 @@
+#!/bin/bash
+
+if [ $#=1 ]; then
+
+	projectName=$1
+	echo -e " Project $projectName!"
+else
+	echo -e " No valid project was supplied \n"
+fi
+
+clear
+#directory="Project"
+#projectName="Default_Project"
+
+cd ~/CVS/Projects
+
+echo "VIEW"
+
+if [ -d "$projectName" ]; then
+
+	cd ~/CVS/Projects/$projectName/Project_Files
+
+	echo "<---------------------------------------------->"
+	echo " 		    View Projects Files "
+	echo "<---------------------------------------------->"
+
+	if [ ls = 0 ] 
+	then
+
+		echo -e "\n There are no projects files \n"
+	else
+		echo -e " \n Projects Files : "
+	
+		echo -n "   " 
+		cd ~/CVS/Projects/$projectName/Project_Files | ls
+	fi
+fi
+
+echo -e "\n<---------------------------------------------->\n"
+
+exit 0

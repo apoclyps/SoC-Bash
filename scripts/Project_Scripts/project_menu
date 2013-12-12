@@ -1,0 +1,400 @@
+#!/bin/bash
+
+if [ $#=1 ]
+then
+	project=$1
+	echo -e " Project $project!"
+else
+	echo -e " No valid project was supplied \n"
+fi
+
+#-------------------------------------------------------MENU
+function menu()
+{
+cat << MAIN_MENU
+<---------------------------------------------->
+		Project Menu
+<---------------------------------------------->
+Project : $project
+
+Access 
+ P. Project Files Menu
+ S. Source Code Menu
+ L. Log Menu  
+ U. Users Menu
+
+ M. Return to Main Menu
+-------------------------------------------------
+MAIN_MENU
+}
+
+function Project_Files_Menu()
+{
+cat << PROJECT_FILES_MENU
+<---------------------------------------------->
+		Project Files Menu
+<---------------------------------------------->
+Project : $project
+
+Files:
+ A. Add 
+ E. Edit 
+ V. View 
+ R. Remove 
+
+File Requests:
+ I. Check In 
+ O. Check Out 
+ D. Compare Differences
+
+File Restore:
+ B. Restore to Original
+ P. Revert to Previous Version
+ 
+ M. Return to Main Menu
+-------------------------------------------------
+PROJECT_FILES_MENU
+}
+
+function Project_Files_Selection()
+{
+projectFileExit=false
+
+while [ $projectFileExit != true ]
+do
+	Project_Files_Menu
+
+	echo -n " Select option :"
+	read option
+
+	#cd ~/CVS/CVS_scripts/scripts/Project_Scripts/Project_Files
+	cd ~/CVS_install/scripts/Project_Scripts/Project_Files
+
+	case "$option" in
+	a|A) 
+		clear	
+		chmod 777 add_File 
+#		./add_File "$project"
+		./add_File "Project_1"
+	;;
+	e|E) 
+		clear		
+		chmod 777 edit_file
+#		./edit_file "$project"
+		./edit_file "Project_1"		
+	;;
+	v|V) 
+		clear	
+		chmod 777 view_file 
+#		./view_file "$project"
+		./view_file "Project_1"
+	;;
+	r|R) 
+		clear	
+		chmod 777 remove_file
+#		./remove_file "$project"
+		./remove_file "Project_1"
+	;;
+	i|I) 
+		clear	
+		chmod 777 check_in
+#		./check_in "$project"
+		./check_in "Project_1"
+	;;
+	o|O) 
+		clear	
+		chmod 777 check_out
+#		./check_out "$project"
+		./check_out "Project_1"
+	;;
+	b|B) 
+		clear	
+		cd ~/CVS_install/scripts/Project_Scripts
+		chmod 777 restore_file
+#		./restore_file "$project"
+		./restore_file "Project_1" "Program_Files"
+	;;
+	p|P) 
+		clear	
+		cd ~/CVS_install/scripts/Project_Scripts
+		chmod 777 revert_file
+#		./revert_file "$project"
+		./revert_file "Project_1" "Program_Files"
+	;;
+	d|D) 
+		clear	
+		cd ~/CVS_install/scripts/Project_Scripts
+		chmod 777 compare_diff
+#		./compare_diff "$project"
+		./compare_diff "Project_1"
+	;;
+	m|M) 
+		projectFileExit=true
+	;;
+	*) echo -e "Invalid option. Try entering the correct charachter.\n"
+	;;
+	esac
+done
+
+}
+
+function Source_Code_Menu()
+{
+cat << SOURCE_CODE_MENU
+<---------------------------------------------->
+		Source Code Menu
+<---------------------------------------------->
+Project : $project
+
+Files:
+ A. Add 
+ F. Edit 
+ V. View 
+ R. Remove 
+
+File Requests:
+ I. Check In 
+ O. Check Out 
+ C. Compile
+ E. Execute 
+
+File Restore:
+ B. Restore to Original
+ P. Revert  to Previous Version
+ 
+ M. Return to Main Menu
+-------------------------------------------------
+SOURCE_CODE_MENU
+}
+
+function Source_Code_Selection()
+{
+
+sourceCodeExit=false
+while [ $sourceCodeExit != true ]
+do
+	Source_Code_Menu
+
+	echo -n " Select option :"
+	read option
+
+	cd ~/CVS_install/scripts/Project_Scripts
+
+	chmod 777 edit_log
+	chmod 777 edit_change_log
+	
+	#cd ~/CVS/CVS_scripts/scripts/Project_Scripts/Project_Files
+	cd ~/CVS_install/scripts/Project_Scripts/Project_Files
+
+	case "$option" in
+	a|A) 
+		clear		
+		chmod 777 add_source
+#		./add_source "$project"
+		./add_source "Project_1"
+	;;
+	f|F) 
+		clear		
+		chmod 777 edit_source
+#		./edit_source "$project"
+		./edit_source "Project_1"
+	;;
+	v|V) 
+		clear	
+		chmod 777 view_source
+#		./view_source "$project"
+		./view_source "Project_1"
+	;;
+	r|R) 
+		clear	
+		chmod 777 remove_source
+#		./remove_source "$project"
+		./remove_source "Project_1"
+	;;
+	i|I) 
+		clear		
+		chmod 777 check_in_source
+#		./check_in_source "$project"
+		./check_in_source "Project_1"
+	;;
+	o|O) 
+		clear		
+		chmod 777 check_out_source
+#		./check_out_source "$project"
+		./check_out_source "Project_1"
+	;;
+	p|P) 
+		clear	
+		#User_Menu
+	;;
+	e|E) 
+		clear	
+		#Tracking_Menu
+	;;
+	m|M) 
+		sourceCodeExit=true
+	;;
+	*) echo -e "Invalid option. Try entering the correct charachter.\n"
+	;;
+	esac
+done
+}
+
+function User_Menu()
+{
+cat << USER_MENU
+<---------------------------------------------->
+		User Menu
+<---------------------------------------------->
+Project : $project
+
+User:
+ U. Add User
+ C. Change Permissions
+ R. Remove User
+ V. View Users
+ 
+ M. Return to Main Menu
+-------------------------------------------------
+USER_MENU
+}
+
+function User_Selection()
+{
+
+UserExit=false
+while [ $UserExit != true ]
+do
+	User_Menu
+
+	echo -n " Select option :"
+	read option
+
+
+	case "$option" in
+	u|U) 
+		clear		
+		#Project_Files_Menu
+	;;
+	c|C) 
+		clear		
+		#Source_Code_Menu
+	;;
+	r|R) 
+		clear	
+		#User_Menu
+	;;
+	v|V) 
+		clear	
+		#Tracking_Menu
+	;;
+	m|M) 
+		UserExit=true
+	;;
+	*) echo -e "Invalid option. Try entering the correct charachter.\n"
+	;;
+	esac
+done
+}
+
+
+function Log_Menu()
+{
+cat << LOG_MENU
+<---------------------------------------------->
+		Log Menu
+<---------------------------------------------->
+Project : $project
+
+User:
+ A. View Archive Log
+ C. View Change Log
+ D. View Diff Log
+ L. View Access Log
+ 
+ M. Return to Main Menu
+-------------------------------------------------
+LOG_MENU
+}
+
+function Log_Selection()
+{
+
+LogMenuExit=false
+while [ $LogMenuExit != true ]
+do
+	Log_Menu
+
+	echo -n " Select option :"
+	read option
+
+	cd ~/CVS/Projects/$project/Logs
+
+	case "$option" in
+	a|A) 
+		clear		
+		gedit Archive.txt
+	;;
+	c|C) 
+		clear		
+		gedit Change_Log.txt
+	;;
+	d|D) 
+		clear		
+		gedit Diff_Log.txt
+	;;
+	l|L) 
+		clear	
+		gedit Access_Log.txt
+	;;
+	m|M) 
+		LogMenuExit=true
+	;;
+	*) echo -e "Invalid option. Try entering the correct charachter.\n"
+	;;
+	esac
+done
+}
+
+#-------------------------------------------------------------------------------------
+
+menuExit=false
+
+while [ $menuExit != true ]
+do
+	clear
+	menu
+
+	echo -n " Select option :"
+	read option
+
+	cd ~/CVS/CVS_scripts/scripts/Project_Scripts
+
+	case "$option" in
+	p|P) 
+		clear		
+		Project_Files_Selection
+	;;
+	s|S) 
+		clear		
+		Source_Code_Selection
+	;;
+	u|U) 
+		clear	
+		User_Selection
+	;;
+	l|L) 
+		clear	
+		Log_Selection
+	;;
+	m|M) 
+		menuExit=true
+	;;
+	*) echo -e "Invalid option. Try entering the correct charachter.\n"
+	exit 1
+	;;
+	esac
+done
+
+exit 0
+

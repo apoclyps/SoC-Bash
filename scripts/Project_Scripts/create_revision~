@@ -1,0 +1,48 @@
+#!/bin/bash
+
+if [ $# = 3 ] 
+then
+	projectName=$1
+	subDir=$2
+	fileAccessed=$3
+	
+	cd ~/CVS/Projects/
+	
+	if [ -d "$projectName" ] 
+	then
+
+	cd ~/CVS/Projects/$projectName/$subDir
+
+		if [ -f $fileAccessed ]	
+		then
+
+			cd ~/CVS/Projects/$projectName/$subDir
+
+			## trim .txt from file
+			file="${fileAccessed%????}"
+			echo $file"asdasd"
+
+			# create new copy of file
+			cp $fileAccessed ~/CVS/Projects/$projectName/Revisions/"$file _`date +%d-%m-%Y_%H-%M`.txt"
+
+			date=`date +%d-%m-%Y_%H-%M`
+			Name=$file"_"$date".txt"
+			echo $Name
+			echo `date +%d-%m-%Y_%H-%M`
+			echo " Revision created sucessfully"
+
+			cd ~/CVS_install/scripts/Project_Scripts
+			./edit_log "$projectName" "Revision $Name Created"
+		else
+			echo -e "\n          $fileAccessed does not exists. \n"
+			echo -e "<---------------------------------------------->\n"
+		fi
+	else 
+		echo -e "\n          $projectName does not exists. \n"
+		echo -e "<---------------------------------------------->\n"
+	fi
+else
+		echo -e "No arguments \n"
+fi
+
+exit 0

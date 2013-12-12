@@ -1,0 +1,94 @@
+#!/bin/bash
+
+clear
+directory="CVS"
+
+cd ~/
+
+echo "<---------------------------------------------->"
+echo " 		 Installation"
+echo "<---------------------------------------------->"
+
+if [ ! -d "$directory" ]; then
+    # Control will enter here if $DIRECTORY doesn't exist
+
+	mkdir $directory
+	chmod 777 CVS
+	cd ~/CVS/
+	echo " Directory created. "
+	
+	mkdir "Projects"	
+	mkdir "Projects_Archive"
+	mkdir "Archive_Log"
+
+	echo " Sub-directories created. "
+
+	chmod 777 Projects
+	chmod 777 Projects_Archive
+	chmod 777 Archive_Log
+
+	echo " Sub-directories permissioned changed. "
+
+	cd ~/
+	cp -rf CVS_install ~/CVS/
+
+	echo " Copied installation files to directory. "
+
+	cd ~/CVS/
+	mv CVS_install CVS_scripts
+	
+	echo " Created installation folder. "
+
+	cd ~/CVS/CVS_scripts/scripts/
+	mv uninstall ~/CVS/uninstall
+	
+	chmod 777 login
+
+	echo " Change permissions for login. "
+
+	cd ~/CVS
+
+	chmod 777 uninstall
+
+	echo " Change permissions for uninstall. "
+
+	
+	
+
+	echo "<---------------------------------------------->"
+	echo " 		 Installation Successful"
+	echo -e "<---------------------------------------------->\n"
+
+	echo " Would you like to remove the installation files?"
+	echo -n " (y/n) : "
+	read confirmation
+	echo ""	
+
+	confirm_delete="y"
+
+	if [ "$confirmation" = "$confirm_delete" ]; then
+
+		rm -rf ~/CVS_install
+
+		echo "<---------------------------------------------->"
+		echo "    $directory directory sucessfully removed."
+		echo "<---------------------------------------------->"
+	fi
+
+else
+	echo -e "\n          $directory directory already exists. \n"
+
+	echo -e "<---------------------------------------------->\n"
+fi
+
+echo -e " Press any key to continue to Login..."
+read input
+
+chmod 777 login
+
+clear
+cd ~/CVS/CVS_scripts/scripts/
+~/CVS/CVS_scripts/scripts/login
+
+
+exit 0

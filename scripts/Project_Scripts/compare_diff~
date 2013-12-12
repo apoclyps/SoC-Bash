@@ -1,0 +1,59 @@
+#!/bin/bash
+
+if [ $# = 1 ] 
+then
+	projectName=$1
+	#subDir=$2
+	
+	cd ~/CVS/Projects/
+	
+	if [ -d "$projectName" ] 
+	then
+
+	cd ~/CVS/Projects/$projectName/Project_Files
+
+	echo "<---------------------------------------------->"
+	echo " 		    View Projects Files "
+	echo "<---------------------------------------------->"
+
+	cd ~/CVS/Projects/$projectName/Revisions
+	if [ ls = 0 ]
+	then
+		echo -e "\n There are no projects files \n"
+	else
+		echo -e " \n Projects Files : "
+	
+		echo " " $(ls)
+	fi
+
+	echo -e "\n Enter File Name : "
+	 	echo -en " "
+		read Name
+
+		if [ -f $Name ]	
+		then
+			oldFile=$Name			
+			file="${Name%?????????????????????}"
+			newFile=$file".txt"	
+			
+			cd ~/CVS_install/scripts/Project_Scripts
+			./edit_change_log "$projectName" "$newFile" "Compare Differences"	
+			./diff_log "$projectName" "$newFile" 
+	
+			cd ~/CVS/Projects/$projectName/Revisions
+
+			diff -a $oldFile ~/CVS/Projects/$projectName/Project_Files/"$newFile" >> ~/CVS/Projects/$projectName/Logs/Diff_Log.txt
+			
+		else
+			echo -e "\n          $fileAccessed does not exists. \n"
+			echo -e "<---------------------------------------------->\n"
+		fi
+	else 
+		echo -e "\n          $projectName does not exists. \n"
+		echo -e "<---------------------------------------------->\n"
+	fi
+else
+		echo -e "No arguments \n"
+fi
+
+exit 0

@@ -1,0 +1,61 @@
+#!/bin/bash
+
+if [ $#=1 ]
+then
+
+	projectName=$1
+	echo -e " Project $projectName!"
+else
+	echo -e " No valid project was supplied \n"
+fi
+
+clear
+#directory="Project"
+#projectName="Default_Project"
+
+cd ~/CVS/Projects/
+
+echo "<---------------------------------------------->"
+echo " 		     Add file to Project"
+echo "<---------------------------------------------->"
+echo " Project : $projectName"
+
+echo -en "\n Enter file Name : "
+read Name
+
+if [ -d "$projectName" ]
+then
+
+	cd ~/CVS/Projects/$projectName/Project_Files
+
+	if [ ! -f "$Name.txt" ]
+	then
+		touch $Name.txt
+		echo -e "\n File $Name Created in $projectName \n"
+
+		cp "$Name.txt" ~/CVS/Projects/$projectName/Revisions/Previous_Versions/$Name.txt
+
+		echo "<---------------------------------------------->"
+		echo " 	     File Creation Complete "
+
+		## ACCESS ATTEMPT
+		cd ~/CVS_install/scripts/Project_Scripts
+
+		./edit_log "$projectName" "Created $Name.txt"
+
+		#cp "$Name.txt" ~/CVS/Projects/$projectName/Revisions/Previous_Versions/$Name.txt
+	else
+		echo -e "\n File already exists. \n"
+		echo "<---------------------------------------------->"
+		echo " 	     File Creation Aborted. "
+	fi
+
+	echo -e "<---------------------------------------------->\n"
+
+else
+	echo -e "\n          $projectName does not exists. \n"
+
+	echo -e "<---------------------------------------------->\n"
+fi
+
+exit 0

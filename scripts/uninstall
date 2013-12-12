@@ -1,0 +1,38 @@
+#!/bin/bash
+
+directory="CVS"
+confirm_delete="y"
+
+clear
+
+cd ~/
+
+echo -e "<---------------------------------------------->"
+echo " 		     Uninstall"
+echo "<---------------------------------------------->"
+
+if [ -d "$directory" ]; then
+
+	echo -e "\n Are you sure you would like to remove CVS ? "
+	echo -n " (y/n) : "	
+	read confirmation
+	echo ""	
+
+	if [ "$confirmation" = "$confirm_delete" ]; then
+
+		rm -rf $directory
+
+		echo "<---------------------------------------------->"
+		echo "    $directory directory sucessfully removed."
+		echo -e "<---------------------------------------------->\n"
+	else
+		echo "<---------------------------------------------->"
+		echo " 		Uninstall Aborted"
+		echo -e "<---------------------------------------------->\n"
+	fi
+else
+	echo -e "\n  $directory directory does not exists to be removed \n"
+	echo -e "<---------------------------------------------->\n"
+
+fi
+exit 0

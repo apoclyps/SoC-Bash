@@ -1,0 +1,66 @@
+#!/bin/bash
+
+if [ $#=1 ]
+then
+
+	projectName=$1
+	echo -e " Project $projectName!"
+else
+	echo -e " No valid project was supplied \n"
+fi
+
+clear
+
+cd ~/CVS/Projects/
+
+if [ -d "$projectName" ]
+then
+
+	cd ~/CVS/Projects/$projectName/Source_Code
+
+	if [ ls = 0 ] 
+		then
+
+			echo -e "\n There are no Source Code files \n"
+		else
+			echo -e " \n Source Code Files : "
+	
+			echo -n "   " 
+			ls
+
+	
+	fi
+
+	echo "<---------------------------------------------->"
+	echo " 		   Remove Source Code Files "
+	echo "<---------------------------------------------->"
+
+	echo -e "\n Enter File Name : "
+ 	echo -en " "
+	read Name
+
+	if [ -f $Name ]
+	then
+		rm $Name
+		echo -e " Source Code $Name Deleted from $projectName \n"
+
+		echo "<---------------------------------------------->"
+		echo " 	     Source Code Deletion Complete "
+
+		cd ~/CVS_install/scripts/Project_Scripts
+		./edit_log "$projectName" "Removed $Name"
+	else
+		echo -e "\n Source Code does not exists. \n"
+		echo "<---------------------------------------------->"
+		echo " 	     Source Code Deletion Aborted. "
+	fi
+
+	echo -e "<---------------------------------------------->\n"
+
+else
+	echo -e "\n          $projectName does not exists. \n"
+
+	echo -e "<---------------------------------------------->\n"
+fi
+
+exit 0

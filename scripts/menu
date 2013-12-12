@@ -1,0 +1,98 @@
+#!/bin/bash
+
+function menu()
+{
+cat << MAIN_MENU
+<---------------------------------------------->
+		Main Menu
+<---------------------------------------------->
+ C. Create Project
+ B. Back up Project
+ V. View Existing Project
+ M. Manage Project
+ D. Delete Project
+ Q. Quit
+-------------------------------------------------
+MAIN_MENU
+}
+
+clear
+menuExit=false
+
+while [ $menuExit != true ]
+do
+	menu
+
+	echo -n " Select option :"
+	read option
+
+	cd ~/CVS/CVS_scripts/scripts/Project_Scripts
+
+	case "$option" in
+	c|C) 
+		
+		chmod 777 create_project
+		./create_project
+
+	;;
+	v|V) 
+		chmod 777 view_projects
+		./view_projects
+	
+	;;
+	d|D) 
+		chmod 777 remove_project
+		./remove_project
+
+	;;
+	b|B) 
+		chmod 777 backup_project
+		./backup_project
+
+	;;
+	m|M) 
+		cd ~/CVS/Projects
+
+		echo "<---------------------------------------------->"
+		echo " 		    View Projects "
+		echo "<---------------------------------------------->"
+
+		if [ ls = 0 ] 
+		then
+
+			echo -e "\n There are no projects \n"
+		else
+			echo -e " \n Projects : "
+	
+			echo -n "   " 
+			cd ~/CVS/Projects | ls
+
+			echo -e "\n Enter Project Name : "
+			read projectName
+
+			if [ -d "$projectName" ]; then
+
+#				cd ~/CVS/Projects/
+
+				echo -e "\n $projectName Selected. "
+
+				cd ~/CVS/CVS_scripts/scripts/Project_Scripts
+				chmod 777 ./project_menu 
+				./project_menu "$projectName"
+
+			else
+				echo -e "\n Project cannot be selected as it does not exist. \n"
+			fi
+		fi
+	;;
+	q|Q) 
+		menuExit=true
+	;;
+	*) echo -e "Invalid option. Try entering the correct charachter.\n"
+	exit 1
+	;;
+	esac
+done
+
+exit 0
+

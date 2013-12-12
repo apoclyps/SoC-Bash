@@ -1,0 +1,53 @@
+#!/bin/bash
+
+if [ $#=1 ]; then
+
+	projectName=$1
+	echo -e " Project $projectName!"
+else
+	echo -e " No valid project was supplied \n"
+fi
+
+clear
+
+cd ~/CVS/Projects/
+
+echo "<---------------------------------------------->"
+echo " 		     Add Source Code to Project"
+echo "<---------------------------------------------->"
+echo " Project : $projectName"
+
+echo -en "\n Enter file Name : "
+read Name
+
+if [ -d "$projectName" ]
+then
+
+	cd ~/CVS/Projects/$projectName/Source_Code
+
+	if [ ! -f "$Name.cpp" ]
+	then
+		touch $Name.cpp
+		echo -e "\n Source Code $Name Created in $projectName \n"
+
+		echo "<---------------------------------------------->"
+		echo " 	     Source Code Creation Complete "
+		
+		cd ~/CVS_install/scripts/Project_Scripts
+		./edit_log "$projectName" "Created $Name.cpp"
+			
+	else
+		echo -e "\n File already exists. \n"
+		echo "<---------------------------------------------->"
+		echo " 	      Source Code Creation Aborted. "
+	fi
+
+	echo -e "<---------------------------------------------->\n"
+	
+else
+	echo -e "\n          $projectName does not exists. \n"
+
+	echo -e "<---------------------------------------------->\n"
+fi
+
+exit 0

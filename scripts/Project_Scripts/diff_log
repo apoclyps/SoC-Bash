@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# File Name:
+# Author:
+# Date Created:
+# Date Last Modified:
+# Purpose:
+#Brief Description:
+
+if [ $# = 2 ] 
+then
+	projectName=$1
+	fileAccessed=$2
+	
+	projectDirectory=~/CVS/Projects/$projectName
+	cd ~/CVS/Projects/
+	
+	if [ -d "$projectName" ] 
+	then
+		cd ~/CVS/Projects/$projectName/Logs
+
+		set $(who am i)
+		session=$4
+
+		set $(date) 
+		echo -e "Specific changes to file - Time : $4 \n" >> ./Diff_Log.txt
+	
+		echo "  User      - " $USER >> ./Diff_Log.txt
+		echo "  Session   - " $session >> ./Diff_Log.txt
+		echo "  Date      - " $1 $2 $3 >> ./Diff_Log.txt
+		echo -e "  Directory - " $projectDirectory >> ./Diff_Log.txt
+		echo -e "  File      - " $fileAccessed  >> ./Diff_Log.txt
+		echo -e "  Changes   : \n" >> ./Diff_Log.txt
+
+		gedit ./Diff_Log.txt
+	else
+		echo -e "No directory \n"
+	fi
+else
+		echo -e "No arguments \n"
+fi
+
+exit 0

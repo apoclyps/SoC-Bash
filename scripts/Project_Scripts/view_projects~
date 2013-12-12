@@ -1,0 +1,26 @@
+#!/bin/bash
+
+clear
+directory="Project"
+projectName="Default_Project"
+
+cd ~/CVS/Projects
+
+echo "<---------------------------------------------->"
+echo " 		    View Projects "
+echo "<---------------------------------------------->"
+
+if [ ls = 0 ] 
+then
+
+	echo -e "\n There are no projects \n"
+else
+	echo -e " \n Projects : "
+	
+	echo -n "   " 
+	cd ~/CVS/Projects | ls
+fi
+
+	echo -e "\n<---------------------------------------------->\n"
+
+exit 0

@@ -1,0 +1,81 @@
+#!/bin/bash
+
+function check_in()
+{
+	cd ~/CVS/Projects/$projectName/Working_Dir
+	mv ./$Name ~/CVS/Projects/$projectName/Project_Files
+	echo -e "\n File $Name moved to Project Files for $projectName"
+}
+
+if [ $#=1 ] 
+then
+	projectName=$1
+
+	clear
+	cd ~/CVS/Projects
+
+	if [ -d $projectName ] 
+	then
+		cd ~/CVS/Projects/$projectName/Project_Files
+		
+		echo "<---------------------------------------------->"
+		echo " 		     Check In File "
+		echo "<---------------------------------------------->"
+			
+		if [ ls = 0 ] 
+		then	
+			echo -e "\n There are no projects files \n"
+		else	
+			echo -e " \n Projects Files : "
+			echo -n "   " 
+			ls
+		fi # End if ls
+
+		## DISPLAY WORD_DIR
+		cd ~/CVS/Projects/$projectName/Working_Dir
+	
+		if [ ls = 0 ] 
+		then	
+			echo -e "\n There are no projects files \n"
+		else	
+			echo -e " \n Working Dir Files : "
+			echo -n "   " 
+			ls
+		fi # End if ls
+
+		echo -e "\n Enter File Name : "
+	 	echo -en " "
+		read Name
+
+		if [ -f $Name ]	
+		then	
+			check_in
+				
+			echo -e "\n<---------------------------------------------->"
+			echo -e " 	     File Check In Complete"
+
+			cd ~/CVS_install/scripts/Project_Scripts
+			./edit_log "$projectName" "Checked In $Name"
+
+			echo -en "\n Enter Changes : "
+	 		read Changes	
+			echo ""	
+
+			./edit_log "$projectName" "Checked in $Name"
+			./edit_change_log "$projectName" "$Name" "$Changes"
+			./create_revision "$projectName" "Project_Files" "$Name"
+		else	
+			echo -e "\n File does not exists in current directory. \n"
+			echo "<---------------------------------------------->"
+			echo " 	     File Check In Aborted. "
+		fi # end name
+		echo -e "<---------------------------------------------->\n"
+	else 
+		echo -e "\n          $projectName does not exists. \n"
+		echo -e "<---------------------------------------------->\n"
+	fi
+else 
+echo -e " No valid project was supplied \n"
+fi
+
+exit 0

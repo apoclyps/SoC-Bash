@@ -1,0 +1,79 @@
+#!/bin/bash
+
+function check_out()
+{
+	cd ~/CVS/Projects/$projectName/Source_Code
+	if [ -f "$Name" ] 
+	then	
+		mv  ./$Name ~/CVS/Projects/$projectName/Working_Dir/Source_Code_Dir
+		echo "Source Code $Name moved to Working Directory of $projectName"
+	fi
+}
+
+if [ $#=1 ] 
+then
+	projectName=$1
+	#echo -e " Project $projectName"
+	
+	clear
+	cd ~/CVS/Projects
+
+	if [ -d $projectName ] 
+	then
+		cd ~/CVS/Projects/$projectName/Source_Code
+
+		echo "<---------------------------------------------->"
+		echo " 		     Check Out Source Code "
+		echo "<---------------------------------------------->"
+		
+		if [ ls = 0 ] 
+		then	
+			echo -e "\n There are no Source Code files \n"
+		else	
+			echo -e " \n Source Code Files : "
+			echo -n "   " 
+			ls
+		fi # End if ls
+
+		## DISPLAY WORD_DIR
+		cd ~/CVS/Projects/$projectName/Working_Dir/Source_Code_Dir
+	
+		if [ ls = 0 ] 
+		then	
+			echo -e "\n There are no Source Code files \n"
+		else	
+			echo -e " \n Working Dir Files : "
+			echo -n "   " 
+			ls
+		fi # End if ls
+
+		cd ~/CVS/Projects/$projectName/Source_Code
+
+		echo -e "\n Enter File Name : "
+	 	echo -en " "
+		read Name
+
+		if [ -f $Name ]	
+		then	
+			if [ $fileRequest="out" ]
+			then	
+				check_out
+			fi
+	
+			echo -e "\n<---------------------------------------------->"
+			echo " 	     Source Code Check Out Complete "
+		else	
+			echo -e "\n File does not exists in current directory. \n"
+			echo "<---------------------------------------------->"
+			echo " 	     Source Code Check Out Aborted. "
+		fi # end name
+		echo -e "<---------------------------------------------->\n"
+	else 
+		echo -e "\n          $projectName does not exists. \n"
+		echo -e "<---------------------------------------------->\n"
+	fi
+else 
+echo -e " No valid project was supplied \n"
+fi
+
+exit 0

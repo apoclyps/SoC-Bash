@@ -1,0 +1,47 @@
+#!/bin/bash
+
+clear
+directory="Project"
+projectName="Default_Project"
+
+cd ~/CVS/Projects
+
+echo "<---------------------------------------------->"
+echo " 		    View Projects "
+echo "<---------------------------------------------->"
+
+if [ ls = 0 ] 
+then
+
+	echo -e "\n There are no projects \n"
+else
+	echo -e " \n Projects : "
+	
+	echo -n "   " 
+	cd ~/CVS/Projects | ls
+fi
+
+
+echo -e "\n Enter Project Name : "
+read projectName
+
+if [ -d "$projectName" ]; then
+
+set $(date)
+
+tar -pczf "$projectName"_"$1"_"$2"_"$3"_backup.tar.gz $projectName
+
+
+mv "$projectName"_"$1"_"$2"_"$3"_backup.tar.gz ~/CVS/Projects/$projectName/Back-ups
+
+echo -e "\n Back up created in $projectName back up directory "
+
+else
+
+echo -e "\n Project $projectName does not exist"
+
+fi
+
+	echo -e "\n<---------------------------------------------->\n"
+
+exit 0

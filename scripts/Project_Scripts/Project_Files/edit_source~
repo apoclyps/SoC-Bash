@@ -1,0 +1,57 @@
+#!/bin/bash
+
+if [ $#=1 ]; then
+	projectName=$1
+	echo -e " Project $projectName!"
+else
+	echo -e " No valid project was supplied \n"
+fi
+
+clear
+
+cd ~/CVS/Projects/
+
+if [ -d "$projectName" ]; then
+
+	cd ~/CVS/Projects/$projectName/Source_Code
+
+	if [ ls = 0 ] 
+		then
+
+			echo -e "\n There are no Source Code files \n"
+		else
+			echo -e " \n Source Code Files : "
+	
+			echo -n "   " 
+			ls
+	fi
+
+	echo "<---------------------------------------------->"
+	echo " 		     Edit Source Code "
+	echo "<---------------------------------------------->"
+
+	echo -e "\n Enter File Name : "
+ 	echo -en " "
+	read Name
+
+	if [ -f $Name ]; then
+	
+		gedit $Name
+
+		echo -e " Source Code $Name Edited from $projectName \n"
+
+		echo "<---------------------------------------------->"
+		echo " 	     Source Code Edit Complete "
+	else
+		echo -e "\n Source Code does not exists. \n"
+		echo "<---------------------------------------------->"
+		echo " 	     Source Code Edit Aborted. "
+	fi
+
+	echo -e "<---------------------------------------------->\n"
+
+else
+	echo -e "\n          $projectName does not exists. \n"
+
+	echo -e "<---------------------------------------------->\n"
+fi
